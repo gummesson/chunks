@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Chunks</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h1">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1>Chunks</h1>
+<p>A super duper, teeny tiny functional library.</p>
+<p><strong>License:</strong> MIT<br> <strong>Source:</strong> <a href="https://github.com/gummesson/funcs">GitHub</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>(root, <span class="literal">undefined</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2>References</h2>
+<p>The references to various things used throughout the library.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> ArrayProto = Array.prototype,
+      ObjProto   = Object.prototype,
+      push       = ArrayProto.push,
+      concat     = ArrayProto.concat,
+      toString   = ObjProto.toString,
+      hasOwnProp = ObjProto.hasOwnProperty;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h3>Native implementations</h3>
+<p>The native implementations of the array functions, which will be used
+if they&#39;re available.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> nativeEach    = ArrayProto.forEach,
+      nativeMap     = ArrayProto.map,
+      nativeFilter  = ArrayProto.filter,
+      nativeReduce  = ArrayProto.reduce,
+      nativeSome    = ArrayProto.some,
+      nativeEvery   = ArrayProto.every,
+      nativeIndexOf = ArrayProto.indexOf,
+      nativeIsArray = Array.isArray,
+      nativeKeys    = Object.keys;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2>Chunks</h2>
+<p>The namespace.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> Chunks = {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h3>Collections</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h4>Chunks.forEach / Chunks.each</h4>
+<p>Execute the <code>iterator</code> on every item in the <code>obj</code>.</p>
+<p>The base function used in all of <code>Chunks</code>&#39;s other functions.</p>
+<ul>
+<li><code>obj</code>      is either an array or an object.</li>
+<li><code>iterator</code> is a function.</li>
+<li><code>scope</code>    is the value of <code>this</code>.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.forEach = Chunks.each = <span class="keyword">function</span>(obj, iterator, scope) {
+    <span class="keyword">if</span> (nativeEach &amp;&amp; obj.nativeEach) {
+      obj.forEach(iterator, scope);
+    } <span class="keyword">else</span> <span class="keyword">if</span> (obj.length !== <span class="literal">undefined</span>) {
+      <span class="keyword">var</span> i, length = obj.length;
+      <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; length; i++) {
+        iterator.call(scope, obj[i], i, obj);
+      }
+    } <span class="keyword">else</span> {
+      <span class="keyword">var</span> i, keys = Chunks.keys(obj), length = keys.length;
+      <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; length; i++) {
+        iterator.call(scope, obj[keys[i]], keys[i], obj);
+      }
+    }
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h4>Chunks.map</h4>
+<p>Return a new and transformed array by executing the <code>iterator</code>
+on every item in the <code>obj</code>.</p>
+<ul>
+<li><code>obj</code>      is either an array or an object.</li>
+<li><code>iterator</code> is a function.</li>
+<li><code>scope</code>    is the value of <code>this</code>.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.map = <span class="keyword">function</span>(obj, iterator, scope) {
+    <span class="keyword">if</span> (nativeMap &amp;&amp; obj.nativeMap) { <span class="keyword">return</span> obj.map(iterator, scope); }
+    <span class="keyword">var</span> results = [];
+    Chunks.forEach(obj, <span class="keyword">function</span>(val, i, obj) {
+      results.push(iterator.call(scope, val, i, obj));
+    });
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h4>Chunks.filter</h4>
+<p>Return a new array by executing the <code>iterator</code> on every item in
+the <code>obj</code>. Only the items that evalute to <code>true</code> in the <code>iterator</code>
+will be added to the array.</p>
+<ul>
+<li><code>obj</code>      is either an array or an object.</li>
+<li><code>iterator</code> is a function.</li>
+<li><code>scope</code>    is the value of <code>this</code>.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.filter = <span class="keyword">function</span>(obj, iterator, scope) {
+    <span class="keyword">if</span> (nativeFilter &amp;&amp; obj.nativeFilter) { <span class="keyword">return</span> obj.filter(iterator, scope); }
+    <span class="keyword">var</span> results = [];
+    Chunks.forEach(obj, <span class="keyword">function</span>(val, i, obj) {
+      <span class="keyword">if</span> (iterator.call(scope, val, i, obj)) {
+        results.push(val);
+      }
+    });
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h4>Chunks.reduce</h4>
+<p>Return a single value by executing the <code>iterator</code> on every item
+in the <code>obj</code> and passing the previous value, <code>memo</code>, to the <code>iterator</code>.</p>
+<ul>
+<li><code>iterator</code> is a function.</li>
+<li><code>memo</code>     is the initial value.</li>
+<li><code>scope</code>    is the value of <code>this</code>.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.reduce = <span class="keyword">function</span>(obj, iterator, memo, scope) {
+    <span class="keyword">if</span> (nativeReduce &amp;&amp; obj.nativeReduce) { <span class="keyword">return</span> obj.reduce(iterator, memo); }
+    Chunks.forEach(obj, <span class="keyword">function</span>(val, i, obj) {
+      memo = iterator.call(scope, memo, val, i, obj);
+    });
+    <span class="keyword">return</span> memo;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h4>Chunks.some</h4>
+<p>Return either <code>true</code> or <code>false</code> by executing the <code>iterator</code> on
+every item in the <code>obj</code>. It&#39;ll return <code>true</code> if one of the items
+in the <code>obj</code> matches the <code>iterator</code>.</p>
+<ul>
+<li><code>obj</code>      is either an array or an object.</li>
+<li><code>iterator</code> is a function.</li>
+<li><code>scope</code>    is the value of <code>this</code>.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.some = <span class="keyword">function</span>(obj, iterator, scope) {
+    <span class="keyword">if</span> (nativeSome &amp;&amp; obj.nativeSome) { <span class="keyword">return</span> obj.some(iterator, scope); }
+    <span class="keyword">var</span> results = <span class="literal">false</span>;
+    Chunks.forEach(obj, <span class="keyword">function</span>(val, i, obj) {
+      <span class="keyword">if</span> (iterator.call(scope, val, i, obj)) {
+        results = <span class="literal">true</span>;
+      }
+    });
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h4>Chunks.every</h4>
+<p>Return either <code>true</code> or <code>false</code> by executing the <code>iterator</code> on
+every item in the <code>obj</code>. It&#39;ll return <code>true</code> if all of the items
+in the <code>obj</code> matches the <code>iterator</code>.</p>
+<ul>
+<li><code>obj</code>      is either an array or an object.</li>
+<li><code>iterator</code> is a function.</li>
+<li><code>scope</code>    is the value of <code>this</code>.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.every = <span class="keyword">function</span>(obj, iterator, scope) {
+    <span class="keyword">if</span> (nativeEvery &amp;&amp; obj.nativeEvery) { <span class="keyword">return</span> obj.every(iterator, scope); }
+    <span class="keyword">var</span> results = <span class="literal">true</span>;
+    Chunks.forEach(obj, <span class="keyword">function</span>(val, i, obj) {
+      <span class="keyword">if</span> (!iterator.call(scope, val, i, obj)) {
+        results = <span class="literal">false</span>;
+      }
+    });
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h4>Chunks.find</h4>
+<p>Return the index of the <code>item</code> in the <code>obj</code>. It delegates to
+the native <code>indexOf</code> implementation whenever it can.</p>
+<ul>
+<li><code>obj</code>  is either an array or an object.</li>
+<li><code>item</code> is a value.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.find = <span class="keyword">function</span>(obj, item) {
+    <span class="keyword">if</span> (nativeIndexOf &amp;&amp; obj.nativeIndexOf) { <span class="keyword">return</span> obj.indexOf(item); }
+    <span class="keyword">var</span> results = -<span class="number">1</span>;
+    Chunks.forEach(obj, <span class="keyword">function</span>(val, i) {
+      <span class="keyword">if</span> (val === item) { results = i; }
+    });
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h4>Chunks.contains</h4>
+<p>Determine if the <code>obj</code> contains the <code>item</code>.</p>
+<ul>
+<li><code>obj</code>  is either an array or an object.</li>
+<li><code>item</code> is a value.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.contains = <span class="keyword">function</span>(obj, item) {
+    <span class="keyword">var</span> results = Chunks.some(obj, <span class="keyword">function</span>(val) {
+      <span class="keyword">return</span> item === val;
+    });
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h4>Chunks.size</h4>
+<p>Return the size of the <code>obj</code>.</p>
+<ul>
+<li><code>obj</code> is either an array or an object.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.size = <span class="keyword">function</span>(obj) {
+    <span class="keyword">if</span> (obj.length !== <span class="literal">undefined</span>) {
+      <span class="keyword">return</span> obj.length;
+    } <span class="keyword">else</span> {
+      <span class="keyword">return</span> Chunks.keys(obj).length;
+    }
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h3>Types</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h4>Chunks.isArray</h4>
+<p>Determine if the <code>obj</code> is an array.</p>
+<ul>
+<li><code>obj</code> is any kind of object.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.isArray = (nativeIsArray || <span class="keyword">function</span>(obj) {
+    <span class="keyword">return</span> (toString.call(obj) === <span class="string">'[object Array]'</span>);
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <h4>Chunks.isObject</h4>
+<p>Determine if the <code>obj</code> is an object.</p>
+<ul>
+<li><code>obj</code> is any kind of object.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.isObject = <span class="keyword">function</span>(obj) {
+    <span class="keyword">return</span> (toString.call(obj) === <span class="string">'[object Object]'</span>);
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h3>Arrays</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <h4>Chunks.first</h4>
+<p>Return the first item in the <code>arr</code>.</p>
+<ul>
+<li><code>arr</code> is an array.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.first = <span class="keyword">function</span>(arr) {
+    <span class="keyword">return</span> arr[<span class="number">0</span>];
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h4>Chunks.last</h4>
+<p>Return the last item in the <code>arr</code>.</p>
+<ul>
+<li><code>arr</code> is an array.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.last = <span class="keyword">function</span>(arr) {
+    <span class="keyword">return</span> arr[arr.length - <span class="number">1</span>];
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <h4>Chunks.flatten</h4>
+<p>Return a new and transformed array by flattening the nested arrays
+in the <code>arr</code>.</p>
+<ul>
+<li><code>arr</code> is an array.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.flatten = <span class="keyword">function</span>(arr) {
+    <span class="keyword">var</span> results = Chunks.reduce(arr, <span class="keyword">function</span>(memo, val) {
+      <span class="keyword">return</span> memo.concat(val);
+    }, []);
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <h3>Objects</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <h4>Chunks.keys</h4>
+<p>Return a new array with keys from the <code>obj</code>.</p>
+<ul>
+<li><code>obj</code> is an object.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.keys = (nativeKeys || <span class="keyword">function</span>(obj) {
+    <span class="keyword">var</span> results = [];
+    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) {
+      <span class="keyword">if</span> (Chunks.has(obj, key)) {
+        results.push(key);
+      }
+    }
+    <span class="keyword">return</span> results;
+  });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <h4>Chunks.values</h4>
+<p>Return a new array with values from the <code>obj</code>.</p>
+<ul>
+<li><code>obj</code> is an object.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.values = <span class="keyword">function</span>(obj) {
+    <span class="keyword">var</span> results = [];
+    Chunks.forEach(obj, <span class="keyword">function</span>(val) {
+      results.push(val);
+    });
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h4>Chunks.has</h4>
+<p>Determine if the <code>obj</code> has the <code>key</code>.</p>
+<ul>
+<li><code>obj</code> is an object.</li>
+<li><code>key</code> is a value.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.has = <span class="keyword">function</span>(obj, key) {
+    <span class="keyword">return</span> (hasOwnProp.call(obj, key));
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <h4>Chunks.extend</h4>
+<p>Merge the properties in the <code>obj</code> together with the properties
+in the <code>src</code>.</p>
+<ul>
+<li><code>obj</code> is an object.</li>
+<li><code>src</code> is an object.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.extend = <span class="keyword">function</span>(obj, src) {
+    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> src) {
+      <span class="keyword">if</span> (Chunks.has(src, key)) {
+        <span class="keyword">if</span> (src[key] !== <span class="literal">undefined</span>) {
+          obj[key] = src[key];
+        }
+      }
+    }
+    <span class="keyword">return</span> obj;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <h2>Exports</h2>
+<p>Export <code>Chunks</code> as a CommonJS module or expose it to
+the global scope (<code>window</code>) for browser usage.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="keyword">if</span> (<span class="keyword">typeof</span> module !== <span class="string">'undefined'</span> &amp;&amp; module.exports) {
+    module.exports = Chunks;
+  } <span class="keyword">else</span> {
+    root.Chunks = Chunks;
+  }
+
+})(<span class="keyword">this</span>);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
