@@ -38,7 +38,7 @@ Because learning something new by building it yourself is kind of fun.
 - `Chunks.has`
 - `Chunks.extend`
 
-Check out the [API documentation](https://github.com/gummesson/funcs/blob/master/API.md), which includes examples, for more information.
+Check out the [API documentation](https://github.com/gummesson/chunks/blob/master/API.md), which includes examples, for more information.
 
 ## Should I use this instead of X, Y or Z?
 
