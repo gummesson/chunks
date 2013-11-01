@@ -1,0 +1,17 @@
+// # Chunks
+
+// ## Variables
+
+$base-ui-color: #6a3fb0;
+
+// ## Imports
+
+@import "../geno-template/sass/geno.scss";
+
+// ## Code
+
+pre {
+  overflow: auto;
+  word-wrap: normal;
+  white-space: pre;
+}

@@ -1,0 +1,29 @@
+{
+  "name": "chunks",
+  "version": "0.1.0",
+  "homepage": "https://github.com/gummesson/chunks",
+  "authors": [
+    "Ellen Gummesson <ellengummesson@gmail.com>"
+  ],
+  "description": "A super duper, teeny tiny functional library for JavaScript.",
+  "main": "dist/chunks.min.js",
+  "keywords": [
+    "functional",
+    "utility"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets",
+    "docs",
+    "test",
+    "tests",
+    ".gitmodules",
+    "Gruntfile.js",
+    "package.json",
+    "geno.json",
+    "API.md"
+  ]
+}
