@@ -1,6 +1,6 @@
 /* Modules */
 
-var must  = require('must'),
+var must   = require('must'),
     Chunks = require('../lib/chunks');
 
 /* Tests */
