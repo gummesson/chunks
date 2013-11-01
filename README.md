@@ -1,5 +1,6 @@
 # Chunks
 
+[![NPM version](https://badge.fury.io/js/chunks.png)](http://badge.fury.io/js/chunks)
 [![Build Status](https://travis-ci.org/gummesson/chunks.png?branch=master)](https://travis-ci.org/gummesson/chunks)
 
 A super duper, teeny tiny functional library for JavaScript.
