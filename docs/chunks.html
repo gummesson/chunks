@@ -301,7 +301,7 @@ in the <code>obj</code> matches the <code>iterator</code>.</p>
               <div class="pilwrap for-h4">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              <h4>Chunks.find</h4>
+              <h4>Chunks.index</h4>
 <p>Return the index of the <code>item</code> in the <code>obj</code>. It delegates to
 the native <code>indexOf</code> implementation whenever it can.</p>
 <ul>
@@ -311,7 +311,7 @@ the native <code>indexOf</code> implementation whenever it can.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Chunks.find = <span class="keyword">function</span>(obj, item) {
+            <div class="content"><div class='highlight'><pre>  Chunks.index = <span class="keyword">function</span>(obj, item) {
     <span class="keyword">if</span> (nativeIndexOf &amp;&amp; obj.nativeIndexOf) { <span class="keyword">return</span> obj.indexOf(item); }
     <span class="keyword">var</span> results = -<span class="number">1</span>;
     Chunks.forEach(obj, <span class="keyword">function</span>(val, i) {
@@ -363,11 +363,13 @@ the native <code>indexOf</code> implementation whenever it can.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>  Chunks.size = <span class="keyword">function</span>(obj) {
+    <span class="keyword">var</span> results = <span class="literal">null</span>;
     <span class="keyword">if</span> (obj.length !== <span class="literal">undefined</span>) {
-      <span class="keyword">return</span> obj.length;
+      results = obj.length;
     } <span class="keyword">else</span> {
-      <span class="keyword">return</span> Chunks.keys(obj).length;
+      results = Chunks.keys(obj).length;
     }
+    <span class="keyword">return</span> results;
   };</pre></div></div>
             
         </li>
