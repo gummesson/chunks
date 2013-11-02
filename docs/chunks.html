@@ -23,8 +23,7 @@
               </div>
               <h1>Chunks</h1>
 <p>A super duper, teeny tiny functional library.</p>
-<p><strong>License:</strong> MIT
- <strong>Source:</strong> <a href="https://github.com/gummesson/funcs">GitHub</a></p>
+<p><strong>License:</strong> MIT<br> <strong>Source:</strong> <a href="https://github.com/gummesson/funcs">GitHub</a></p>
 
             </div>
             
@@ -46,6 +45,7 @@
             
             <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> ArrayProto = Array.prototype,
       ObjProto   = Object.prototype,
+      slice      = ArrayProto.slice,
       toString   = ObjProto.toString,
       hasOwnProp = ObjProto.hasOwnProperty;</pre></div></div>
             
@@ -364,7 +364,7 @@ the native <code>indexOf</code> implementation whenever it can.</p>
             
             <div class="content"><div class='highlight'><pre>  Chunks.size = <span class="keyword">function</span>(obj) {
     <span class="keyword">var</span> results = <span class="literal">null</span>;
-    <span class="keyword">if</span> (obj.length !== <span class="literal">undefined</span>) {
+    <span class="keyword">if</span> (Chunks.isArray(obj)) {
       results = obj.length;
     } <span class="keyword">else</span> {
       results = Chunks.keys(obj).length;
@@ -378,8 +378,70 @@ the native <code>indexOf</code> implementation whenever it can.</p>
         <li id="section-15">
             <div class="annotation">
               
-              <div class="pilwrap for-h3">
+              <div class="pilwrap for-h4">
                 <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h4>Chunks.clone</h4>
+<p>Return a clone of the <code>obj</code>.</p>
+<ul>
+<li><code>obj</code> is either an array or an object.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.clone = <span class="keyword">function</span>(obj) {
+    <span class="keyword">var</span> results = <span class="literal">null</span>;
+    <span class="keyword">if</span> (Chunks.isArray(obj)) {
+      results = slice.call(obj);
+    } <span class="keyword">else</span> {
+      results = Chunks.extend({}, obj);
+    }
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h3>Chunks.sort</h3>
+<p>Return a new array with the values from the <code>obj</code> sorted by numerical
+or lexicographical order.</p>
+<ul>
+<li><code>obj</code> is either an array or an object.</li>
+<li><code>by</code>  is a string.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  Chunks.sort = <span class="keyword">function</span>(obj, by) {
+    <span class="keyword">var</span> values  = [],
+        results = <span class="literal">null</span>;
+    Chunks.forEach(obj, <span class="keyword">function</span>(val) {
+      values.push(val);
+    });
+    <span class="keyword">if</span> (by === <span class="string">'numerical'</span> || by === <span class="string">'num'</span>) {
+      results = values.sort(<span class="keyword">function</span>(a, b) {
+        <span class="keyword">return</span> a - b;
+      });
+    } <span class="keyword">else</span> {
+      results = values.sort();
+    }
+    <span class="keyword">return</span> results;
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <h3>Types</h3>
 
@@ -388,11 +450,11 @@ the native <code>indexOf</code> implementation whenever it can.</p>
         </li>
         
         
-        <li id="section-16">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <h4>Chunks.isArray</h4>
 <p>Determine if the <code>obj</code> is an array.</p>
@@ -409,11 +471,11 @@ the native <code>indexOf</code> implementation whenever it can.</p>
         </li>
         
         
-        <li id="section-17">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <h4>Chunks.isObject</h4>
 <p>Determine if the <code>obj</code> is an object.</p>
@@ -430,11 +492,11 @@ the native <code>indexOf</code> implementation whenever it can.</p>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <h3>Arrays</h3>
 
@@ -443,11 +505,11 @@ the native <code>indexOf</code> implementation whenever it can.</p>
         </li>
         
         
-        <li id="section-19">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <h4>Chunks.first</h4>
 <p>Return the first item in the <code>arr</code>.</p>
@@ -464,11 +526,11 @@ the native <code>indexOf</code> implementation whenever it can.</p>
         </li>
         
         
-        <li id="section-20">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <h4>Chunks.last</h4>
 <p>Return the last item in the <code>arr</code>.</p>
@@ -485,11 +547,11 @@ the native <code>indexOf</code> implementation whenever it can.</p>
         </li>
         
         
-        <li id="section-21">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <h4>Chunks.flatten</h4>
 <p>Return a new and transformed array by flattening the nested arrays
@@ -510,11 +572,11 @@ in the <code>arr</code>.</p>
         </li>
         
         
-        <li id="section-22">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <h3>Objects</h3>
 
@@ -523,11 +585,11 @@ in the <code>arr</code>.</p>
         </li>
         
         
-        <li id="section-23">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <h4>Chunks.keys</h4>
 <p>Return a new array with keys from the <code>obj</code>.</p>
@@ -550,11 +612,11 @@ in the <code>arr</code>.</p>
         </li>
         
         
-        <li id="section-24">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <h4>Chunks.values</h4>
 <p>Return a new array with values from the <code>obj</code>.</p>
@@ -575,11 +637,11 @@ in the <code>arr</code>.</p>
         </li>
         
         
-        <li id="section-25">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <h4>Chunks.has</h4>
 <p>Determine if the <code>obj</code> has the <code>key</code>.</p>
@@ -597,11 +659,11 @@ in the <code>arr</code>.</p>
         </li>
         
         
-        <li id="section-26">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap for-h4">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <h4>Chunks.extend</h4>
 <p>Merge the properties in the <code>obj</code> together with the properties
@@ -627,11 +689,11 @@ in the <code>src</code>.</p>
         </li>
         
         
-        <li id="section-27">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <h2>Exports</h2>
 <p>Export <code>Chunks</code> as a CommonJS module or expose it to
