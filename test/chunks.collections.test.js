@@ -258,5 +258,19 @@ describe('Collections:', function() {
         results.must.be(3);
       });
     });
+
+    describe('.clone()', function() {
+      it('must return a clone of the array', function() {
+        var obj     = [1, 2, 3],
+            results = Chunks.clone(obj);
+        results.must.eql([1, 2, 3]);
+      });
+
+      it('must return a clone of the object', function() {
+        var obj     = { one: 1, two: 2, three: 3 },
+            results = Chunks.clone(obj);
+        results.must.eql({ one: 1, two: 2, three: 3 });
+      });
+    });
   });
 });

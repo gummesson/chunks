@@ -154,6 +154,21 @@ Chunks.size(['a', 'b', 'c']);
 // 3
 ~~~
 
+#### Chunks.clone
+
+~~~ javascript
+Chunks.clone(obj);
+~~~
+
+Returns a clone of the `obj`.
+
+##### Example
+
+~~~ javascript
+Chunks.clone([1, 2, 3]);
+// [1, 2, 3]
+~~~
+
 ### Types
 
 #### Chunks.isArray
