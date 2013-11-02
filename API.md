@@ -4,6 +4,8 @@
 
 ### Collections
 
+Every `iterator` returns the value first, then the key and lastly the object itself. The only exception to this rule is `Chunks.reduce` which returns the previous value first and then follows the same convention as the others.
+
 #### Chunks.forEach / Chunks.each
 
 ~~~ javascript
@@ -12,7 +14,7 @@ Chunks.forEach(obj, iterator[, scope]);
 
 Executes the `iterator` on every item in the `obj`. The `scope` is the value of `this`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 var results = [];
@@ -23,6 +25,15 @@ Chunks.forEach([1, 2, 3], function(v) {
 // [3, 2, 1]
 ~~~
 
+~~~ javascript
+var results = [];
+
+Chunks.forEach({one: 1, two: 2, three: 3}, function(v, k) {
+  results.unshift(k);
+});
+// ['three', 'two', 'one']
+~~~
+
 #### Chunks.map
 
 ~~~ javascript
@@ -30,13 +41,20 @@ Chunks.map(obj, iterator[, scope]);
 ~~~
 Returns a new and transformed array by executing the `iterator` on every item in the `obj`. The `scope` is the value of `this`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.map([1, 2, 3], function(v) {
   return v + 1;
 });
 // [2, 3, 4]
+~~~
+
+~~~ javascript
+Chunks.map({one: 1, two: 2, three: 3}, function(v, k) {
+  return k + '!';
+});
+// ['one!', 'two!', 'three!']
 ~~~
 
 #### Chunks.filter
@@ -47,13 +65,20 @@ Chunks.filter(obj, iterator[, scope]);
 
 Returns a new and transformed array by executing the `iterator` on every item in the `obj`. Only the items that evalute to `true` in the `iterator` will be added to the array. The scope is the value of `this`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.filter([1, 2, 3], function(v) {
   return v % 2;
 });
 // [1, 3]
+~~~
+
+~~~ javascript
+Chunks.filter({one: 1, two: 2, three: 3}, function(v, k) {
+  return (k.charAt(0) === 't');
+});
+// [2, 3]
 ~~~
 
 #### Chunks.reduce
@@ -64,13 +89,20 @@ Chunks.reduce(obj, iterator, memo[, scope]);
 
 Returns a single value by executing the `iterator` on every item in the `obj` and passing the previous value, `memo`, to the `iterator`. The scope is the value of `this`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.reduce([1, 2, 3], function(m, v) {
   return m + v;
 }, 0);
 // 6
+~~~
+
+~~~ javascript
+Chunks.reduce({one: 1, two: 2, three: 3}, function(m, v) {
+  return m + v;
+}, '');
+// '123'
 ~~~
 
 #### Chunks.some
@@ -81,11 +113,18 @@ Chunks.some(obj, iterator[, scope]);
 
 Returns either `true` or `false` by executing the `iterator` on every item in the `obj`. It'll return `true` if one of the items in the `obj` matches the `iterator`. The scope is the value of `this`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.some([1, 2, 3], function(v) {
   return v === 3;
+});
+// true
+~~~
+
+~~~ javascript
+Chunks.some({one: 1, two: 2, three: 3}, function(v, k) {
+  return k === 'two';
 });
 // true
 ~~~
@@ -107,6 +146,13 @@ Chunks.every([1, 2, 3], function(v) {
 // false
 ~~~
 
+~~~ javascript
+Chunks.every({one: 1, two: 2, three: 3}, function(v, k) {
+  return (k.charAt(0) === 't');
+});
+// false
+~~~
+
 #### Chunks.index
 
 ~~~ javascript
@@ -124,6 +170,11 @@ Chunks.index([1, 2, 3], 2);
 // 1
 ~~~
 
+~~~ javascript
+Chunks.index({one: 1, two: 2, three: 3}, 2);
+// 'two'
+~~~
+
 #### Chunks.contains
 
 ~~~ javascript
@@ -136,6 +187,11 @@ Determines if the `obj` contains the `item`. It returns either `true` or `false`
 
 ~~~ javascript
 Chunks.contains([1, 2, 3], 2);
+// true
+~~~
+
+~~~ javascript
+Chunks.contains({one: 1, two: 2, three: 3}, 2);
 // true
 ~~~
 
@@ -154,6 +210,11 @@ Chunks.size(['a', 'b', 'c']);
 // 3
 ~~~
 
+~~~ javascript
+Chunks.size({one: 1, two: 2, three: 3});
+// 3
+~~~
+
 #### Chunks.clone
 
 ~~~ javascript
@@ -167,6 +228,11 @@ Returns a clone of the `obj`.
 ~~~ javascript
 Chunks.clone([1, 2, 3]);
 // [1, 2, 3]
+~~~
+
+~~~ javascript
+Chunks.clone({one: 1, two: 2, three: 3});
+// {one: 1, two: 2, three: 3}
 ~~~
 
 #### Chunks.sort
