@@ -169,6 +169,26 @@ Chunks.clone([1, 2, 3]);
 // [1, 2, 3]
 ~~~
 
+#### Chunks.sort
+
+~~~ javascript
+Chunks.sort(obj[, by]);
+~~~
+
+Return a new array with the values from the `obj` sorted by numerical or lexicographical order.
+
+##### Example
+
+~~~ javascript
+Chunks.sort([1, 10, 2, 20, 3, 30], 'num');
+// [1, 2, 3, 10, 20, 30]
+~~~
+
+~~~ javascript
+Chunks.sort(['a', 'd', 'b', 'e', 'c', 'f']);
+// ['a', 'b', 'c', 'd', 'e', 'f']
+~~~
+
 ### Types
 
 #### Chunks.isArray

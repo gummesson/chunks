@@ -22,6 +22,7 @@ Because learning something new by building it yourself is kind of fun.
 - `Chunks.index`
 - `Chunks.contains`
 - `Chunks.size`
+- `Chunks.sort`
 
 ### Types
 
@@ -45,7 +46,7 @@ Check out the [API documentation](https://github.com/gummesson/chunks/blob/maste
 
 ## Should I use this instead of X, Y or Z?
 
-It depends. `Chunks` is primarily designed to be lightweight and small and thus there's currently only 19 functions available. If you need more functions than those listed in the above list I'd suggest you to use [Underscore](https://github.com/jashkenas/underscore), [Lo-Dash](https://github.com/lodash/lodash) or [Valentine](https://github.com/ded/valentine) instead.
+It depends. `Chunks` is primarily designed to be lightweight and small and thus there's currently only 20 functions available. If you need more functions than those listed in the above list I'd suggest you to use [Underscore](https://github.com/jashkenas/underscore), [Lo-Dash](https://github.com/lodash/lodash) or [Valentine](https://github.com/ded/valentine) instead.
 
 ## License
 
