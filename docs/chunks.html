@@ -45,7 +45,6 @@
             
             <div class="content"><div class='highlight'><pre>  <span class="keyword">var</span> ArrayProto = Array.prototype,
       ObjProto   = Object.prototype,
-      slice      = ArrayProto.slice,
       toString   = ObjProto.toString,
       hasOwnProp = ObjProto.hasOwnProperty;</pre></div></div>
             
@@ -392,7 +391,7 @@ the native <code>indexOf</code> implementation whenever it can.</p>
             <div class="content"><div class='highlight'><pre>  Chunks.clone = <span class="keyword">function</span>(obj) {
     <span class="keyword">var</span> results = <span class="literal">null</span>;
     <span class="keyword">if</span> (Chunks.isArray(obj)) {
-      results = slice.call(obj);
+      results = obj.slice();
     } <span class="keyword">else</span> {
       results = Chunks.extend({}, obj);
     }
