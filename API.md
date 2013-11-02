@@ -283,7 +283,7 @@ Chunks.isArray([1, 2, 3]);
 ~~~
 
 ~~~ javascript
-Chunks.isArray({one: 1, two: 2, three: 3}));
+Chunks.isArray({one: 1, two: 2, three: 3});
 // false
 ~~~
 
