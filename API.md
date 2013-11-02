@@ -107,10 +107,10 @@ Chunks.every([1, 2, 3], function(v) {
 // false
 ~~~
 
-#### Chunks.find
+#### Chunks.index
 
 ~~~ javascript
-Chunks.find(obj, item);
+Chunks.index(obj, item);
 ~~~
 
 Returns the index of the `item` in the `obj`. It returns the index of the item, or `-1` if nothing is found.
@@ -120,7 +120,7 @@ It delegates to `indexOf` whenever it can, albeit without the option of choosing
 ##### Example
 
 ~~~ javascript
-Chunks.find([1, 2, 3], 2);
+Chunks.index([1, 2, 3], 2);
 // 1
 ~~~
 

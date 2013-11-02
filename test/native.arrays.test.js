@@ -76,14 +76,14 @@ describe('Arrays:', function() {
       });
     });
 
-    describe('.find()', function() {
+    describe('.index()', function() {
       it('must return the index of the item in the array', function() {
-        var results = Chunks.find([1, 2, 3], 2);
+        var results = Chunks.index([1, 2, 3], 2);
         results.must.be(1);
       });
 
       it('must return -1 if the item can\'t be found in the array', function() {
-        var results = Chunks.find([1, 2, 3], 4);
+        var results = Chunks.index([1, 2, 3], 4);
         results.must.be(-1);
       });
     });

@@ -19,7 +19,7 @@ Because learning something new by building it yourself is kind of fun.
 - `Chunks.reduce`
 - `Chunks.some`
 - `Chunks.every`
-- `Chunks.find`
+- `Chunks.index`
 - `Chunks.contains`
 - `Chunks.size`
 

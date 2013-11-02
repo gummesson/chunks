@@ -187,12 +187,12 @@ describe('Collections:', function() {
       });
     });
 
-    describe('.find()', function() {
+    describe('.index()', function() {
       it('must return the index of the item in the array', function() {
         var obj = [1, 2, 3];
         obj.indexOf = null; // [1]
         obj.forEach = null; // [1]
-        var results = Chunks.find(obj, 2);
+        var results = Chunks.index(obj, 2);
         results.must.be(1);
       });
 
@@ -200,19 +200,19 @@ describe('Collections:', function() {
         var obj = [1, 2, 3];
         obj.indexOf = null; // [1]
         obj.forEach = null; // [1]
-        var results = Chunks.find(obj, 4);
+        var results = Chunks.index(obj, 4);
         results.must.be(-1);
       });
 
       it('must return the index of the item in the object', function() {
         var obj     = { one: 1, two: 2, three: 3 },
-            results = Chunks.find(obj, 2);
+            results = Chunks.index(obj, 2);
         results.must.be('two');
       });
 
       it('must return -1 if the item can\'t be found in the object', function() {
         var obj     = { one: 1, two: 2, three: 3 },
-            results = Chunks.find(obj, 4);
+            results = Chunks.index(obj, 4);
         results.must.be(-1);
       });
     });
