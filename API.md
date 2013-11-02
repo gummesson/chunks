@@ -255,6 +255,16 @@ Chunks.sort(['a', 'd', 'b', 'e', 'c', 'f']);
 // ['a', 'b', 'c', 'd', 'e', 'f']
 ~~~
 
+~~~ javascript
+Chunks.sort({one: 1, ten: 10, two: 2, twenty: 20, three: 3, thirty: 30}, 'num');
+// [1, 2, 3, 10, 20, 30]
+~~~
+
+~~~ javascript
+Chunks.sort({one: 'a', four: 'd', two: 'b', five: 'e', three: 'c', six: 'f'});
+// ['a', 'b', 'c', 'd', 'e', 'f']
+~~~
+
 ### Types
 
 #### Chunks.isArray
@@ -272,6 +282,11 @@ Chunks.isArray([1, 2, 3]);
 // true
 ~~~
 
+~~~ javascript
+Chunks.isArray({one: 1, two: 2, three: 3}));
+// false
+~~~
+
 #### Chunks.isObject
 
 ~~~ javascript
@@ -285,6 +300,11 @@ Determines if the `obj` is an object. It returns either `true` or `false`.
 ~~~ javascript
 Chunks.isObject({one: 1, two: 2, three: 3});
 // true
+~~~
+
+~~~ javascript
+Chunks.isObject([1, 2, 3]);
+// false
 ~~~
 
 ### Arrays
