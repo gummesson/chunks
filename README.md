@@ -22,6 +22,7 @@ Because learning something new by building it yourself is kind of fun.
 - `Chunks.index`
 - `Chunks.contains`
 - `Chunks.size`
+- `Chunks.clone`
 - `Chunks.sort`
 
 ### Types
