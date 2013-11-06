@@ -126,13 +126,12 @@ if they&#39;re available.</p>
     <span class="keyword">if</span> (nativeEach &amp;&amp; obj.nativeEach) {
       obj.forEach(iterator, scope);
     } <span class="keyword">else</span> <span class="keyword">if</span> (obj.length !== <span class="literal">undefined</span>) {
-      <span class="keyword">var</span> i, length = obj.length;
-      <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; length; i++) {
+      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, length = obj.length; i &lt; length; i++) {
         iterator.call(scope, obj[i], i, obj);
       }
     } <span class="keyword">else</span> {
-      <span class="keyword">var</span> i, keys = Chunks.keys(obj), length = keys.length;
-      <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; length; i++) {
+      <span class="keyword">var</span> keys = Chunks.keys(obj);
+      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, length = keys.length; i &lt; length; i++) {
         iterator.call(scope, obj[keys[i]], keys[i], obj);
       }
     }
