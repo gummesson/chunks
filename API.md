@@ -241,7 +241,7 @@ Chunks.clone({one: 1, two: 2, three: 3});
 Chunks.sort(obj[, by]);
 ~~~
 
-Return a new array with the values from the `obj` sorted by numerical or lexicographical order.
+Returns a new array with the values from the `obj` sorted by numerical or lexicographical order.
 
 ##### Example
 
@@ -362,7 +362,7 @@ Chunks.flatten([[1, 2, 3], [4, 5, 6]]);
 Chunks.keys(obj);
 ~~~
 
-Return a new array with keys from the `obj`.
+Returns a new array with keys from the `obj`.
 
 ##### Example
 
@@ -377,7 +377,7 @@ Chunks.keys({one: 1, two: 2, three: 3});
 Chunks.values(obj);
 ~~~
 
-Return a new array with values from the `obj`.
+Returns a new array with values from the `obj`.
 
 ##### Example
 
