@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Chunks</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="style.css" rel="stylesheet">
+  <link href="highlight.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <header class="billboard">
+    <div class="island">
+      <div class="wrapper  wrapper--banner">
+        <h1 class="billboard__title">
+        Chunks
+        </h1>
+        <p class="billboard__print">
+          A super duper, teeny tiny functional library.
+        </p>
+      </div>
+    </div>
+  </header>
+  <article class="page">
+    <div class="island">
+      <div class="wrapper">
+<h1>Chunks</h1>
+<h2>API</h2>
+<h3>Collections</h3>
+<p>Every <code>iterator</code> returns the value first, then the key and lastly the object itself. The only exception to this rule is <code>Chunks.reduce</code> which returns the previous value first and then follows the same convention as the others.</p>
+<h4>Chunks.forEach / Chunks.each</h4>
+<pre><code class="javascript">Chunks.forEach(obj, iterator[, scope]);</code></pre>
+<p>Executes the <code>iterator</code> on every item in the <code>obj</code>. The <code>scope</code> is the value of <code>this</code>.</p>
+<h5>Examples</h5>
+<pre><code class="javascript"><span class="keyword">var</span> results = [];
+
+Chunks.forEach([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="keyword">function</span><span class="params">(v)</span> {</span>
+  results.unshift(v);
+});
+<span class="comment">// [3, 2, 1]</span></code></pre>
+<pre><code class="javascript"><span class="keyword">var</span> results = [];
+
+Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="function"><span class="keyword">function</span><span class="params">(v, k)</span> {</span>
+  results.unshift(k);
+});
+<span class="comment">// ['three', 'two', 'one']</span></code></pre>
+<h4>Chunks.map</h4>
+<pre><code class="javascript">Chunks.map(obj, iterator[, scope]);</code></pre>
+<p>Returns a new and transformed array by executing the <code>iterator</code> on every item in the <code>obj</code>. The <code>scope</code> is the value of <code>this</code>.</p>
+<h5>Examples</h5>
+<pre><code class="javascript">Chunks.map([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="keyword">function</span><span class="params">(v)</span> {</span>
+  <span class="keyword">return</span> v + <span class="number">1</span>;
+});
+<span class="comment">// [2, 3, 4]</span></code></pre>
+<pre><code class="javascript">Chunks.map({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="function"><span class="keyword">function</span><span class="params">(v, k)</span> {</span>
+  <span class="keyword">return</span> k + <span class="string">'!'</span>;
+});
+<span class="comment">// ['one!', 'two!', 'three!']</span></code></pre>
+<h4>Chunks.filter</h4>
+<pre><code class="javascript">Chunks.filter(obj, iterator[, scope]);</code></pre>
+<p>Returns a new and transformed array by executing the <code>iterator</code> on every item in the <code>obj</code>. Only the items that evalute to <code>true</code> in the <code>iterator</code> will be added to the array. The scope is the value of <code>this</code>.</p>
+<h5>Examples</h5>
+<pre><code class="javascript">Chunks.filter([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="keyword">function</span><span class="params">(v)</span> {</span>
+  <span class="keyword">return</span> v % <span class="number">2</span>;
+});
+<span class="comment">// [1, 3]</span></code></pre>
+<pre><code class="javascript">Chunks.filter({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="function"><span class="keyword">function</span><span class="params">(v, k)</span> {</span>
+  <span class="keyword">return</span> (k.charAt(<span class="number">0</span>) === <span class="string">'t'</span>);
+});
+<span class="comment">// [2, 3]</span></code></pre>
+<h4>Chunks.reduce</h4>
+<pre><code class="javascript">Chunks.reduce(obj, iterator, memo[, scope]);</code></pre>
+<p>Returns a single value by executing the <code>iterator</code> on every item in the <code>obj</code> and passing the previous value, <code>memo</code>, to the <code>iterator</code>. The scope is the value of <code>this</code>.</p>
+<h5>Examples</h5>
+<pre><code class="javascript">Chunks.reduce([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="keyword">function</span><span class="params">(m, v)</span> {</span>
+  <span class="keyword">return</span> m + v;
+}, <span class="number">0</span>);
+<span class="comment">// 6</span></code></pre>
+<pre><code class="javascript">Chunks.reduce({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="function"><span class="keyword">function</span><span class="params">(m, v)</span> {</span>
+  <span class="keyword">return</span> m + v;
+}, <span class="string">''</span>);
+<span class="comment">// '123'</span></code></pre>
+<h4>Chunks.some</h4>
+<pre><code class="javascript">Chunks.some(obj, iterator[, scope]);</code></pre>
+<p>Returns either <code>true</code> or <code>false</code> by executing the <code>iterator</code> on every item in the <code>obj</code>. It&#39;ll return <code>true</code> if one of the items in the <code>obj</code> matches the <code>iterator</code>. The scope is the value of <code>this</code>.</p>
+<h5>Examples</h5>
+<pre><code class="javascript">Chunks.some([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="keyword">function</span><span class="params">(v)</span> {</span>
+  <span class="keyword">return</span> v === <span class="number">3</span>;
+});
+<span class="comment">// true</span></code></pre>
+<pre><code class="javascript">Chunks.some({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="function"><span class="keyword">function</span><span class="params">(v, k)</span> {</span>
+  <span class="keyword">return</span> k === <span class="string">'two'</span>;
+});
+<span class="comment">// true</span></code></pre>
+<h4>Chunks.every</h4>
+<pre><code class="javascript">Chunks.every(obj, iterator[, scope]);</code></pre>
+<p>Returns either <code>true</code> or <code>false</code> by executing the <code>iterator</code> on every item in the <code>obj</code>. It&#39;ll return <code>true</code> if all of the items in the <code>obj</code> matches the <code>iterator</code>. The scope is the value of <code>this</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.every([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="keyword">function</span><span class="params">(v)</span> {</span>
+  <span class="keyword">return</span> v &gt; <span class="number">2</span>;
+});
+<span class="comment">// false</span></code></pre>
+<pre><code class="javascript">Chunks.every({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="function"><span class="keyword">function</span><span class="params">(v, k)</span> {</span>
+  <span class="keyword">return</span> (k.charAt(<span class="number">0</span>) === <span class="string">'t'</span>);
+});
+<span class="comment">// false</span></code></pre>
+<h4>Chunks.index</h4>
+<pre><code class="javascript">Chunks.index(obj, item);</code></pre>
+<p>Returns the index of the <code>item</code> in the <code>obj</code>. It returns the index of the item, or <code>-1</code> if nothing is found.</p>
+<p>It delegates to <code>indexOf</code> whenever it can, albeit without the option of choosing the start index (hence the different name).</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.index([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">2</span>);
+<span class="comment">// 1</span></code></pre>
+<pre><code class="javascript">Chunks.index({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="number">2</span>);
+<span class="comment">// 'two'</span></code></pre>
+<h4>Chunks.contains</h4>
+<pre><code class="javascript">Chunks.contains(obj, item);</code></pre>
+<p>Determines if the <code>obj</code> contains the <code>item</code>. It returns either <code>true</code> or <code>false</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.contains([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">2</span>);
+<span class="comment">// true</span></code></pre>
+<pre><code class="javascript">Chunks.contains({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="number">2</span>);
+<span class="comment">// true</span></code></pre>
+<h4>Chunks.size</h4>
+<pre><code class="javascript">Chunks.size(obj);</code></pre>
+<p>Returns the size of the <code>obj</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.size([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]);
+<span class="comment">// 3</span></code></pre>
+<pre><code class="javascript">Chunks.size({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
+<span class="comment">// 3</span></code></pre>
+<h4>Chunks.clone</h4>
+<pre><code class="javascript">Chunks.clone(obj);</code></pre>
+<p>Returns a clone of the <code>obj</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.clone([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
+<span class="comment">// [1, 2, 3]</span></code></pre>
+<pre><code class="javascript">Chunks.clone({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
+<span class="comment">// {one: 1, two: 2, three: 3}</span></code></pre>
+<h4>Chunks.sort</h4>
+<pre><code class="javascript">Chunks.sort(obj[, by]);</code></pre>
+<p>Returns a new array with the values from the <code>obj</code> sorted by numerical or lexicographical order.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.sort([<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>, <span class="number">20</span>, <span class="number">3</span>, <span class="number">30</span>], <span class="string">'num'</span>);
+<span class="comment">// [1, 2, 3, 10, 20, 30]</span></code></pre>
+<pre><code class="javascript">Chunks.sort([<span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'f'</span>]);
+<span class="comment">// ['a', 'b', 'c', 'd', 'e', 'f']</span></code></pre>
+<pre><code class="javascript">Chunks.sort({one: <span class="number">1</span>, ten: <span class="number">10</span>, two: <span class="number">2</span>, twenty: <span class="number">20</span>, three: <span class="number">3</span>, thirty: <span class="number">30</span>}, <span class="string">'num'</span>);
+<span class="comment">// [1, 2, 3, 10, 20, 30]</span></code></pre>
+<pre><code class="javascript">Chunks.sort({one: <span class="string">'a'</span>, four: <span class="string">'d'</span>, two: <span class="string">'b'</span>, five: <span class="string">'e'</span>, three: <span class="string">'c'</span>, six: <span class="string">'f'</span>});
+<span class="comment">// ['a', 'b', 'c', 'd', 'e', 'f']</span></code></pre>
+<h3>Types</h3>
+<h4>Chunks.isArray</h4>
+<pre><code class="javascript">Chunks.isArray(obj);</code></pre>
+<p>Determines if the <code>obj</code> is an array. It returns either <code>true</code> or <code>false</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.isArray([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
+<span class="comment">// true</span></code></pre>
+<pre><code class="javascript">Chunks.isArray({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
+<span class="comment">// false</span></code></pre>
+<h4>Chunks.isObject</h4>
+<pre><code class="javascript">Chunks.isArray(obj);</code></pre>
+<p>Determines if the <code>obj</code> is an object. It returns either <code>true</code> or <code>false</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.isObject({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
+<span class="comment">// true</span></code></pre>
+<pre><code class="javascript">Chunks.isObject([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
+<span class="comment">// false</span></code></pre>
+<h3>Arrays</h3>
+<h4>Chunks.first</h4>
+<pre><code class="javascript">Chunks.first(arr);</code></pre>
+<p>Returns the first item in the <code>arr</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.first([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
+<span class="comment">// 1</span></code></pre>
+<h4>Chunks.last</h4>
+<pre><code class="javascript">Chunks.last(arr);</code></pre>
+<p>Returns the last item in the <code>arr</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.last([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
+<span class="comment">// 3</span></code></pre>
+<h4>Chunks.flatten</h4>
+<pre><code class="javascript">Chunks.flatten(arr);</code></pre>
+<p>Returns a new and transformed array by flattening the nested arrays in the <code>arr</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.flatten([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]]);
+<span class="comment">// [1, 2, 3, 4, 5, 6]</span></code></pre>
+<h3>Objects</h3>
+<h4>Chunks.keys</h4>
+<pre><code class="javascript">Chunks.keys(obj);</code></pre>
+<p>Returns a new array with keys from the <code>obj</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.keys({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
+<span class="comment">// ['one', 'two', 'three']</span></code></pre>
+<h4>Chunks.values</h4>
+<pre><code class="javascript">Chunks.values(obj);</code></pre>
+<p>Returns a new array with values from the <code>obj</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.values({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
+<span class="comment">// [1, 2, 3]</span></code></pre>
+<h4>Chunks.has</h4>
+<pre><code class="javascript">Chunks.has(obj, key);</code></pre>
+<p>Determine if the <code>obj</code> has the <code>key</code>. It returns either <code>true</code> or <code>false</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.has({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="string">'two'</span>);
+<span class="comment">// true</span></code></pre>
+<h4>Chunks.extend</h4>
+<pre><code class="javascript">Chunks.extend(obj, src);</code></pre>
+<p>Merge the properties in the <code>obj</code> together with the properties in the <code>src</code>.</p>
+<h5>Example</h5>
+<pre><code class="javascript">Chunks.extend({one: <span class="number">1</span>, two: <span class="number">3</span>}, {two: <span class="number">2</span>, three: <span class="number">3</span>});
+<span class="comment">// {one: 1, two: 2, three: 3}</span></code></pre>
+      </div>
+    </div>
+  </article>
+  <footer class="billboard  billboard--foot">
+    <div class="islet">
+    <div class="wrapper  wrapper--banner">
+        <p class="billboard__print  print--small">
+          <a class="billboard__link" href="https://github.com/gummesson/geno">Built with Geno</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
