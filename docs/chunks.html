@@ -407,25 +407,22 @@ the native <code>indexOf</code> implementation whenever it can.</p>
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <h3>Chunks.sort</h3>
-<p>Return a new array with the values from the <code>obj</code> sorted by numerical
-or lexicographical order.</p>
+<p>Return a new array with the values from the <code>obj</code> sorted by the <code>comp</code>.</p>
 <ul>
-<li><code>obj</code> is either an array or an object.</li>
-<li><code>by</code>  is a string.</li>
+<li><code>obj</code>  is either an array or an object.</li>
+<li><code>comp</code> is a function.</li>
 </ul>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Chunks.sort = <span class="keyword">function</span>(obj, by) {
+            <div class="content"><div class='highlight'><pre>  Chunks.sort = <span class="keyword">function</span>(obj, comp) {
     <span class="keyword">var</span> values  = [],
         results = <span class="literal">null</span>;
     Chunks.forEach(obj, <span class="keyword">function</span>(val) {
       values.push(val);
     });
-    <span class="keyword">if</span> (by === <span class="string">'numerical'</span> || by === <span class="string">'num'</span>) {
-      results = values.sort(<span class="keyword">function</span>(a, b) {
-        <span class="keyword">return</span> a - b;
-      });
+    <span class="keyword">if</span> (comp) {
+      results = values.sort(comp);
     } <span class="keyword">else</span> {
       results = values.sort();
     }

@@ -97,7 +97,7 @@ Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2<
 <h4>Chunks.every</h4>
 <pre><code class="javascript">Chunks.every(obj, iterator[, scope]);</code></pre>
 <p>Returns either <code>true</code> or <code>false</code> by executing the <code>iterator</code> on every item in the <code>obj</code>. It&#39;ll return <code>true</code> if all of the items in the <code>obj</code> matches the <code>iterator</code>. The scope is the value of <code>this</code>.</p>
-<h5>Example</h5>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.every([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="keyword">function</span><span class="params">(v)</span> {</span>
   <span class="keyword">return</span> v &gt; <span class="number">2</span>;
 });
@@ -110,7 +110,7 @@ Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2<
 <pre><code class="javascript">Chunks.index(obj, item);</code></pre>
 <p>Returns the index of the <code>item</code> in the <code>obj</code>. It returns the index of the item, or <code>-1</code> if nothing is found.</p>
 <p>It delegates to <code>indexOf</code> whenever it can, albeit without the option of choosing the start index (hence the different name).</p>
-<h5>Example</h5>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.index([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">2</span>);
 <span class="comment">// 1</span></code></pre>
 <pre><code class="javascript">Chunks.index({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="number">2</span>);
@@ -118,7 +118,7 @@ Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2<
 <h4>Chunks.contains</h4>
 <pre><code class="javascript">Chunks.contains(obj, item);</code></pre>
 <p>Determines if the <code>obj</code> contains the <code>item</code>. It returns either <code>true</code> or <code>false</code>.</p>
-<h5>Example</h5>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.contains([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">2</span>);
 <span class="comment">// true</span></code></pre>
 <pre><code class="javascript">Chunks.contains({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>}, <span class="number">2</span>);
@@ -126,7 +126,7 @@ Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2<
 <h4>Chunks.size</h4>
 <pre><code class="javascript">Chunks.size(obj);</code></pre>
 <p>Returns the size of the <code>obj</code>.</p>
-<h5>Example</h5>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.size([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]);
 <span class="comment">// 3</span></code></pre>
 <pre><code class="javascript">Chunks.size({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
@@ -134,28 +134,31 @@ Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2<
 <h4>Chunks.clone</h4>
 <pre><code class="javascript">Chunks.clone(obj);</code></pre>
 <p>Returns a clone of the <code>obj</code>.</p>
-<h5>Example</h5>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.clone([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
 <span class="comment">// [1, 2, 3]</span></code></pre>
 <pre><code class="javascript">Chunks.clone({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
 <span class="comment">// {one: 1, two: 2, three: 3}</span></code></pre>
 <h4>Chunks.sort</h4>
-<pre><code class="javascript">Chunks.sort(obj[, by]);</code></pre>
-<p>Returns a new array with the values from the <code>obj</code> sorted by numerical or lexicographical order.</p>
-<h5>Example</h5>
-<pre><code class="javascript">Chunks.sort([<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>, <span class="number">20</span>, <span class="number">3</span>, <span class="number">30</span>], <span class="string">'num'</span>);
-<span class="comment">// [1, 2, 3, 10, 20, 30]</span></code></pre>
+<pre><code class="javascript">Chunks.sort(obj[, comp]);</code></pre>
+<p>Returns a new array with the values from the <code>obj</code> sorted, either by lexicographical order or the <code>comp</code> function.</p>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.sort([<span class="string">'a'</span>, <span class="string">'d'</span>, <span class="string">'b'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'f'</span>]);
 <span class="comment">// ['a', 'b', 'c', 'd', 'e', 'f']</span></code></pre>
-<pre><code class="javascript">Chunks.sort({one: <span class="number">1</span>, ten: <span class="number">10</span>, two: <span class="number">2</span>, twenty: <span class="number">20</span>, three: <span class="number">3</span>, thirty: <span class="number">30</span>}, <span class="string">'num'</span>);
+<pre><code class="javascript">Chunks.sort([<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>, <span class="number">20</span>, <span class="number">3</span>, <span class="number">30</span>], <span class="function"><span class="keyword">function</span><span class="params">(a, b)</span> {</span>
+  <span class="keyword">return</span> a - b;
+});
 <span class="comment">// [1, 2, 3, 10, 20, 30]</span></code></pre>
 <pre><code class="javascript">Chunks.sort({one: <span class="string">'a'</span>, four: <span class="string">'d'</span>, two: <span class="string">'b'</span>, five: <span class="string">'e'</span>, three: <span class="string">'c'</span>, six: <span class="string">'f'</span>});
 <span class="comment">// ['a', 'b', 'c', 'd', 'e', 'f']</span></code></pre>
+<pre><code class="javascript">Chunks.sort({one: <span class="number">1</span>, ten: <span class="number">10</span>, two: <span class="number">2</span>, twenty: <span class="number">20</span>, three: <span class="number">3</span>, thirty: <span class="number">30</span>}, <span class="function"><span class="keyword">function</span><span class="params">(a, b)</span> {</span>
+  <span class="keyword">return</span> a - b;
+});</code></pre>
 <h3>Types</h3>
 <h4>Chunks.isArray</h4>
 <pre><code class="javascript">Chunks.isArray(obj);</code></pre>
 <p>Determines if the <code>obj</code> is an array. It returns either <code>true</code> or <code>false</code>.</p>
-<h5>Example</h5>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.isArray([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
 <span class="comment">// true</span></code></pre>
 <pre><code class="javascript">Chunks.isArray({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
@@ -163,7 +166,7 @@ Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2<
 <h4>Chunks.isObject</h4>
 <pre><code class="javascript">Chunks.isArray(obj);</code></pre>
 <p>Determines if the <code>obj</code> is an object. It returns either <code>true</code> or <code>false</code>.</p>
-<h5>Example</h5>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.isObject({one: <span class="number">1</span>, two: <span class="number">2</span>, three: <span class="number">3</span>});
 <span class="comment">// true</span></code></pre>
 <pre><code class="javascript">Chunks.isObject([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
@@ -212,6 +215,8 @@ Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2<
 <h5>Example</h5>
 <pre><code class="javascript">Chunks.extend({one: <span class="number">1</span>, two: <span class="number">3</span>}, {two: <span class="number">2</span>, three: <span class="number">3</span>});
 <span class="comment">// {one: 1, two: 2, three: 3}</span></code></pre>
+
+
       </div>
     </div>
   </article>
