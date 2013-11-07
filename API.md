@@ -278,7 +278,7 @@ Chunks.isArray(obj);
 
 Determines if the `obj` is an array. It returns either `true` or `false`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.isArray([1, 2, 3]);
@@ -298,7 +298,7 @@ Chunks.isArray(obj);
 
 Determines if the `obj` is an object. It returns either `true` or `false`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.isObject({one: 1, two: 2, three: 3});
