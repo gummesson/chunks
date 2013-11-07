@@ -274,30 +274,34 @@ describe('Collections:', function() {
     });
 
     describe('.sort()', function() {
-      it('must return a new array with the values from the array sorted by numerical order', function() {
-        var obj     = [1, 10, 2, 20, 3, 30];
-        obj.forEach = null; // [1]
-        var results = Chunks.sort(obj, 'num');
-        results.must.eql([1, 2, 3, 10, 20, 30]);
-      });
-
-      it('must return a new array with the values from the array sorted by lexicographical order', function() {
+      it('must return a new array with the values from the array sorted', function() {
         var obj     = ['a', 'd', 'b', 'e', 'c', 'f'];
         obj.forEach = null; // [1]
         var results = Chunks.sort(obj);
         results.must.eql(['a', 'b', 'c', 'd', 'e', 'f']);
       });
 
-      it('must return a new array with the values from the object sorted by numerical order', function() {
-        var obj     = { one: 1, ten: 10, two: 2, twenty: 20, three: 3, thirty: 30 },
-            results = Chunks.sort(obj, 'num');
+      it('must return a new array with the values from the array sorted by the compare function', function() {
+        var obj     = [1, 10, 2, 20, 3, 30];
+        obj.forEach = null; // [1]
+        var results = Chunks.sort(obj, function(a, b) {
+          return a - b;
+        });
         results.must.eql([1, 2, 3, 10, 20, 30]);
       });
 
-      it('must return a new array with the values from the object sorted by lexicographical order', function() {
+      it('must return a new array with the values from the object sorted', function() {
         var obj     = { one: 'a', four: 'd', two: 'b', five: 'e', three: 'c', six: 'f' },
             results = Chunks.sort(obj);
         results.must.eql(['a', 'b', 'c', 'd', 'e', 'f']);
+      });
+
+      it('must return a new array with the values from the object sorted by the compare function', function() {
+        var obj     = { one: 1, ten: 10, two: 2, twenty: 20, three: 3, thirty: 30 },
+            results = Chunks.sort(obj, function(a, b) {
+          return a - b;
+        });
+        results.must.eql([1, 2, 3, 10, 20, 30]);
       });
     });
   });

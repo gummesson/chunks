@@ -137,7 +137,7 @@ Chunks.every(obj, iterator[, scope]);
 
 Returns either `true` or `false` by executing the `iterator` on every item in the `obj`. It'll return `true` if all of the items in the `obj` matches the `iterator`. The scope is the value of `this`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.every([1, 2, 3], function(v) {
@@ -163,7 +163,7 @@ Returns the index of the `item` in the `obj`. It returns the index of the item, 
 
 It delegates to `indexOf` whenever it can, albeit without the option of choosing the start index (hence the different name).
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.index([1, 2, 3], 2);
@@ -183,7 +183,7 @@ Chunks.contains(obj, item);
 
 Determines if the `obj` contains the `item`. It returns either `true` or `false`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.contains([1, 2, 3], 2);
@@ -203,7 +203,7 @@ Chunks.size(obj);
 
 Returns the size of the `obj`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.size(['a', 'b', 'c']);
@@ -223,7 +223,7 @@ Chunks.clone(obj);
 
 Returns a clone of the `obj`.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.clone([1, 2, 3]);
@@ -238,17 +238,12 @@ Chunks.clone({one: 1, two: 2, three: 3});
 #### Chunks.sort
 
 ~~~ javascript
-Chunks.sort(obj[, by]);
+Chunks.sort(obj[, comp]);
 ~~~
 
-Returns a new array with the values from the `obj` sorted by numerical or lexicographical order.
+Returns a new array with the values from the `obj` sorted, either by lexicographical order or the `comp` function.
 
-##### Example
-
-~~~ javascript
-Chunks.sort([1, 10, 2, 20, 3, 30], 'num');
-// [1, 2, 3, 10, 20, 30]
-~~~
+##### Examples
 
 ~~~ javascript
 Chunks.sort(['a', 'd', 'b', 'e', 'c', 'f']);
@@ -256,13 +251,21 @@ Chunks.sort(['a', 'd', 'b', 'e', 'c', 'f']);
 ~~~
 
 ~~~ javascript
-Chunks.sort({one: 1, ten: 10, two: 2, twenty: 20, three: 3, thirty: 30}, 'num');
+Chunks.sort([1, 10, 2, 20, 3, 30], function(a, b) {
+  return a - b;
+});
 // [1, 2, 3, 10, 20, 30]
 ~~~
 
 ~~~ javascript
 Chunks.sort({one: 'a', four: 'd', two: 'b', five: 'e', three: 'c', six: 'f'});
 // ['a', 'b', 'c', 'd', 'e', 'f']
+~~~
+
+~~~ javascript
+Chunks.sort({one: 1, ten: 10, two: 2, twenty: 20, three: 3, thirty: 30}, function(a, b) {
+  return a - b;
+});
 ~~~
 
 ### Types
