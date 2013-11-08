@@ -101,9 +101,14 @@ describe('Arrays:', function() {
     });
 
     describe('.flatten()', function() {
-      it('must return a new array by flattening the nested arrays inside of it', function() {
-        var results = Chunks.flatten( [[1, 2, 3], [4, 5, 6]]);
+      it('must return a new array by flattening the nested arrays', function() {
+        var results = Chunks.flatten([[1, 2, 3], [4, 5, 6]]);
         results.must.eql([1, 2, 3, 4, 5, 6]);
+      });
+
+      it('must return a new array by merging the base array with the flattened, nested arrays', function() {
+        var results = Chunks.flatten([[2, 3, 4], [5, 6, 7]], [1]);
+        results.must.eql([1, 2, 3, 4, 5, 6, 7]);
       });
     });
   });

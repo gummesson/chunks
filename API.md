@@ -345,16 +345,21 @@ Chunks.last([1, 2, 3]);
 #### Chunks.flatten
 
 ~~~ javascript
-Chunks.flatten(arr);
+Chunks.flatten(arr[, base]);
 ~~~
 
-Returns a new and transformed array by flattening the nested arrays in the `arr`.
+Returns a new and transformed array by flattening the nested arrays in the `arr`. If the `base` is provided it'll get used starting point for the new array.
 
-##### Example
+##### Examples
 
 ~~~ javascript
 Chunks.flatten([[1, 2, 3], [4, 5, 6]]);
 // [1, 2, 3, 4, 5, 6]
+~~~
+
+~~~ javascript
+Chunks.flatten([[2, 3, 4], [5, 6, 7]], [1]);
+// [1, 2, 3, 4, 5, 6, 7]
 ~~~
 
 ### Objects

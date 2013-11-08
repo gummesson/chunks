@@ -24,12 +24,20 @@ describe('Arrays:', function() {
     });
 
     describe('.flatten()', function() {
-      it('must return a new array by flattening the nested arrays the array', function() {
+      it('must return a new array by flattening the nested arrays', function() {
         var obj = [[1, 2, 3], [4, 5, 6]];
         obj.reduce = null;  // [1]
         obj.forEach = null; // [1]
         var results = Chunks.flatten(obj);
         results.must.eql([1, 2, 3, 4, 5, 6]);
+      });
+
+      it('must return a new array by merging the base array with the flattened, nested arrays', function() {
+        var obj = [[2, 3, 4], [5, 6, 7]];
+        obj.reduce = null;  // [1]
+        obj.forEach = null; // [1]
+        var results = Chunks.flatten(obj, [1]);
+        results.must.eql([1, 2, 3, 4, 5, 6, 7]);
       });
     });
   });
