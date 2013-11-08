@@ -185,11 +185,13 @@ Chunks.forEach({one: <span class="number">1</span>, two: <span class="number">2<
 <pre><code class="javascript">Chunks.last([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);
 <span class="comment">// 3</span></code></pre>
 <h4>Chunks.flatten</h4>
-<pre><code class="javascript">Chunks.flatten(arr);</code></pre>
-<p>Returns a new and transformed array by flattening the nested arrays in the <code>arr</code>.</p>
-<h5>Example</h5>
+<pre><code class="javascript">Chunks.flatten(arr[, base]);</code></pre>
+<p>Returns a new and transformed array by flattening the nested arrays in the <code>arr</code>. If the <code>base</code> is provided it&#39;ll get used starting point for the new array.</p>
+<h5>Examples</h5>
 <pre><code class="javascript">Chunks.flatten([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]]);
 <span class="comment">// [1, 2, 3, 4, 5, 6]</span></code></pre>
+<pre><code class="javascript">Chunks.flatten([[<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]], [<span class="number">1</span>]);
+<span class="comment">// [1, 2, 3, 4, 5, 6, 7]</span></code></pre>
 <h3>Objects</h3>
 <h4>Chunks.keys</h4>
 <pre><code class="javascript">Chunks.keys(obj);</code></pre>

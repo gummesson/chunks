@@ -550,17 +550,20 @@ the native <code>indexOf</code> implementation whenever it can.</p>
               </div>
               <h4>Chunks.flatten</h4>
 <p>Return a new and transformed array by flattening the nested arrays
-in the <code>arr</code>.</p>
+in the <code>arr</code>. The new array will use the <code>base</code> as a starting point
+if it&#39;s provided.</p>
 <ul>
-<li><code>arr</code> is an array.</li>
+<li><code>arr</code>  is an array.</li>
+<li><code>base</code> is an array.</li>
 </ul>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Chunks.flatten = <span class="keyword">function</span>(arr) {
+            <div class="content"><div class='highlight'><pre>  Chunks.flatten = <span class="keyword">function</span>(arr, base) {
+    base = (base || []);
     <span class="keyword">var</span> results = Chunks.reduce(arr, <span class="keyword">function</span>(memo, val) {
       <span class="keyword">return</span> memo.concat(val);
-    }, []);
+    }, base);
     <span class="keyword">return</span> results;
   };</pre></div></div>
             
