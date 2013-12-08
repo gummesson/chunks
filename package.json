@@ -1,6 +1,6 @@
 {
   "name": "chunks",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A super duper, teeny tiny functional library.",
   "main": "./lib/chunks.js",
   "scripts": {
